@@ -1,4 +1,22 @@
-1. create main html, with css and js using the MDN folder
-2. working through other sections on fuxam to help with the additional 2 html files
-3. I want three pages, all three of them should have the pictures visible
-4. i need an about page and a seperate page for my projects
+# Alex's Portfolio Website
+A responsive portfolio website showcasing my work in software engineering and 3D printing.
+
+## Pages
+1. HOME- generall info page
+2. ABOUT- personal backround
+3. PROJECTS- showcase my 3D printing and web technologies work
+
+### Features
+- mobile and tablet  breakpoints
+- nagigating between all pages
+- link to external portfolio work
+
+#### Technologies used
+1. HTML
+2. CSS
+3. JavaScript
+4. Google Fonts
+
+##### How to view
+1. Open 'index.html'
+2. visit this link: https://alexd2006-dev.github.io/Personal-Portfolio/
