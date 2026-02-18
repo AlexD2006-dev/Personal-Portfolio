@@ -3,11 +3,16 @@ html {
   font-size: 10px;
   /* Replace PLACEHOLDER with the font-family property value you got from Google Fonts */
   font-family: "Playwrite NZ Basic", cursive;
+   background-color: #000000;
 }
 
 h1 {
   font-size: 60px;
   text-align: center;
+  margin: 0;
+  padding: 20px 0;
+  color: #ffffff;
+  text-shadow: 3px 3px 1px black;
 }
 
 p,
@@ -17,27 +22,84 @@ li {
   letter-spacing: 1px;
 }
 
-html {
-  background-color: #000000;
-}
-
 body {
   padding-top: 0;
   padding-right: 20px;
   padding-bottom: 20px;
   padding-left: 20px;
-  color: #ffffff
-}
-
-h1 {
-  margin: 0;
-  padding: 20px 0;
   color: #ffffff;
-  text-shadow: 3px 3px 1px black;
 }
 
 img {
   display: block;
   margin: 0 auto;
   max-width: 100%;
+}
+
+/* Navigation Styles */
+nav {
+  margin-bottom: 30px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li a {
+  display: block;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: 2px solid #ffffff;
+  transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+  background-color: #333;
+}
+
+/* RESPONSIVE - Tablet (max-width: 768px) */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 45px;
+  }
+
+  nav ul {
+    flex-direction: column;
+  }
+
+  nav ul li a {
+    margin-bottom: 10px;
+    margin-right: 0;
+  }
+}
+
+/* RESPONSIVE - Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 30px;
+  }
+
+  body {
+    padding: 10px;
+  }
+
+  nav ul li a {
+    padding: 8px 12px;
+  }
+
+  p,
+  li {
+    font-size: 14px;
+  }
 }
