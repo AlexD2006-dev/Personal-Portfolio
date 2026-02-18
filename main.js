@@ -8,10 +8,11 @@ const myImage = document.querySelector("img");
 
 myImage.addEventListener("click", () => {
   const mySrc = myImage.getAttribute("src");
-  if (mySrc === "images/3d-pager.png") {
-    myImage.setAttribute("src", "images/website-code.png");
+  if (mySrc === "3d-pager.png") {
+    myImage.setAttribute("src", "website-code.png");
   } else {
-    myImage.setAttribute("src", "images/3d-pager.png");
+    myImage.setAttribute("src", "3d-pager.png");
   }
 });
+
 
