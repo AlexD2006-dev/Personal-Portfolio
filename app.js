@@ -11,8 +11,14 @@ app.get('/about', (request, response) => {
   response.send('This is Alex Draesner\'s About Page!')
 })
 
-app.get('/projects', (request, response) => {
-  response.send('This is Alex Draesner\'s Projects Page!')
+app.get('/projects', (req, res) => {
+  res.send(`
+    <h1>Alex Draesner's Projects</h1>
+    <ul>
+      <li><a href="/project/3d-printing">3D Printing</a></li>
+      <li><a href="/project/first-website">First Website</a></li>
+    </ul>
+  `)
 })
 
 app.get('/project/:projectName', (request, response) => {
