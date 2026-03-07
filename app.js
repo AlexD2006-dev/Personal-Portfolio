@@ -4,7 +4,7 @@ const app = express()
 const PORT = 3000
 
 app.get('/', (request, response) => {
-  response.send('Hello! Welcome to Alex Draesner\'s Portfolio! 🎉')
+  response.send("Hey, I'm Alex Draesner | Welcome to my corner of the internet! 🎉")
 })
 
 app.get('/about', (request, response) => {
