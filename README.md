@@ -33,6 +33,10 @@ Built with a Node.js/Express backend.
 - `/about` - About page
 - `/projects` - Projects page
 - `/project/:projectName` - Dynamic route for individual projects
+      more specifically:
+      - `/project/3d-printing` - 3D Printing — InsightOut project page
+      - `/project/web-development` - Web Development project page
+
 
 ## View Live Site
 https://alexd2006-dev.github.io/Personal-Portfolio/
