@@ -25,9 +25,14 @@ app.get('/projects', (request, response) => {
 })
 
 app.get('/project/:projectName', (request, response) => {
-  const projectName = request.params.projectName
-  const prettyName = projectName.replace(/-/g, ' ')
-  response.send(`<h1>${prettyName}</h1><p>Details about ${prettyName} will go here.</p><a href="/projects">← Back to Projects</a>`)
+  const slug = request.params.projectName
+    if (slug === '3d-printing') {
+     return response.sendFile('projects/3d-printing.html', { root: 'public' })
+    }
+    if (slug === 'web-development') {
+     return response.sendFile('projects/web-development.html', { root: 'public' })
+    }
+   response.status(404).send('<h1>Project not found</h1><p><a href="/projects">Back to projects</a></p>')
 })
 
 app.use(express.static('public'))
