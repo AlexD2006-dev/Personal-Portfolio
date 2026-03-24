@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <link href="/css/style.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Projects - Alex's Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+NZ+Basic:wght@100..400&display=swap" rel="stylesheet">
+    <script async src="/js/main.js"></script>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/projects">Projects</a></li>
+      </ul>
+    </nav>
+
+    <h1>Alex Draesner: Portfolio</h1>
+    <img src="/3d-pager.png" alt="My 3d Print" />
+    
+    <h1>My Projects</h1>
+
+    <section id="projects-list">
+      <ul>
+        <% if (projects.length === 0) { %>
+          <li><p>No projects yet.</p></li>
+        <% } else { %>
+          <% projects.forEach(function(project) { %>
+            <li>
+              <h2><a href="/project/<%= project.slug %>"><%= project.name %></a></h2>
+              <p><%= project.description %></p>
+              <a href="/project/<%= project.slug %>/edit">Edit</a> |
+              <a href="/project/<%= project.slug %>/delete">Delete</a>
+            </li>
+          <% }) %>
+        <% } %>
+      </ul>
+    </section>
+
+    <a href="/projects/new">+ Add New Project</a>
+
+  </body>
+</html>

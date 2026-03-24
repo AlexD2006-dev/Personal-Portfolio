@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <link href="/css/style.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit Project - Alex's Portfolio</title>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/projects">Projects</a></li>
+      </ul>
+    </nav>
+
+    <h1>Edit Project</h1>
+
+    <form action="/project/<%= project.slug %>/edit" method="POST">
+      <label>Name: <input type="text" name="name" value="<%= project.name %>" required /></label><br/>
+      <label>Slug: <input type="text" name="slug" value="<%= project.slug %>" required /></label><br/>
+      <label>Description: <textarea name="description" required><%= project.description %></textarea></label><br/>
+      <label>Image: <input type="text" name="image" value="<%= project.image %>" /></label><br/>
+      <button type="submit">Save Changes</button>
+    </form>
+
+    <a href="/projects">← Back to Projects</a>
+  </body>
+</html>
