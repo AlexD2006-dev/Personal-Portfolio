@@ -37,6 +37,10 @@ app.get('/project/:projectName', (request, response) => {
 
 app.use(express.static('public'))
 
+app.use((req, res) => {
+  res.status(404).sendFile('404.html', { root: 'public' })
+})
+
 app.listen(PORT, () => {
   console.log(`Started server on port ${PORT}`)
 })
