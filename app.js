@@ -63,7 +63,7 @@ app.get('/project/:slug/edit', async (request, response) => {
   }
 })
 
-// Handle edit form submission
+// for editing a project
 app.post('/project/:slug/edit', async (request, response) => {
   try {
     const project = await Project.findOneAndUpdate(
@@ -83,7 +83,7 @@ app.post('/project/:slug/edit', async (request, response) => {
   }
 })
 
-// Delete a project
+// for deleting a project
 app.get('/project/:slug/delete', async (request, response) => {
   try {
     await Project.findOneAndDelete({ slug: request.params.slug })
