@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title><%= project ? project.name : 'Project' %></title>
+    <link href="/css/style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <nav>
+      <ul>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/projects">Projects</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <% if (!project) { %>
+        <h1>Project not found</h1>
+        <p><a href="/projects">← Back to Projects</a></p>
+      <% } else { %>
+
+        <h1><%= project.name %></h1>
+        <% if (project.image) { %>
+          <img src="<%= project.image %>" alt="<%= project.name %> image" />
+        <% } %>
+
+        <!-- description (plain text + Notion link if present) -->
+        <% const d = project.description || '' %>
+        <% const m = d.match(/(https?:\/\/\S+)/) %>
+
+        <p><%= m ? d.replace(m[1], '').trim() : d %></p>
+
+        <% if (m) { %>
+          <p>
+            <a href="<%= m[1].trim() %>" target="_blank" rel="noopener noreferrer">
+              See more photos on my Notion page →
+            </a>
+          </p>
+        <% } %>
+
+        <p><a href="/projects">← Back to Projects</a></p>
+
+      <% } %>
+    </main>
+  </body>
+</html>

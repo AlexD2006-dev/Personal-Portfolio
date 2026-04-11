@@ -2,19 +2,25 @@ require('dotenv').config()
 const express = require('express')
 const path = require('path')
 const connectDB = require('./db')
+const Project = require('./models/Project')
 
 const app = express()
-const Project = require('./models/Project')
-app.set('view engine', 'ejs')
-app.use(express.urlencoded({ extended: true }))
 const PORT = process.env.PORT || 3000
+
+// Set EJS as the templating engine
+app.set('view engine', 'ejs')
+
+// Parse form data from POST requests
+app.use(express.urlencoded({ extended: true }))
 
 // Connect to MongoDB
 connectDB()
 
+// Serve static CSS and JS files
 app.use('/css', express.static(path.join(__dirname, 'css')))
 app.use('/js', express.static(path.join(__dirname, 'js')))
 
+// Static pages
 app.get('/', (request, response) => {
   response.sendFile('index.html', { root: 'public' })
 })
@@ -27,15 +33,18 @@ app.get('/about', (request, response) => {
   response.sendFile('about.html', { root: 'public' })
 })
 
+// List all projects from the database
 app.get('/projects', async (request, response) => {
   const projects = await Project.find()
   response.render('projects', { projects })
 })
 
+// Show form to create a new project
 app.get('/projects/new', (request, response) => {
   response.render('new-project')
 })
 
+// Save a new project to the database
 app.post('/projects', async (request, response) => {
   try {
     const project = new Project({
@@ -52,7 +61,7 @@ app.post('/projects', async (request, response) => {
   }
 })
 
-// Show edit form
+// Show edit form for a project
 app.get('/project/:slug/edit', async (request, response) => {
   try {
     const project = await Project.findOne({ slug: request.params.slug })
@@ -64,10 +73,10 @@ app.get('/project/:slug/edit', async (request, response) => {
   }
 })
 
-// for editing a project
+// Update a project in the database
 app.post('/project/:slug/edit', async (request, response) => {
   try {
-    const project = await Project.findOneAndUpdate(
+    await Project.findOneAndUpdate(
       { slug: request.params.slug },
       {
         name: request.body.name,
@@ -84,7 +93,7 @@ app.post('/project/:slug/edit', async (request, response) => {
   }
 })
 
-// for deleting a project (changed GET to POST)
+// Delete a project from the database
 app.post('/project/:slug/delete', async (request, response) => {
   try {
     await Project.findOneAndDelete({ slug: request.params.slug })
@@ -95,23 +104,26 @@ app.post('/project/:slug/delete', async (request, response) => {
   }
 })
 
-app.get('/project/:projectName', (request, response) => {
-  const slug = request.params.projectName
-  if (slug === '3d-printing') {
-    return response.sendFile('projects/3d-printing.html', { root: 'public' })
+// Show individual project detail page (dynamic route)
+app.get('/project/:projectName', async (request, response) => {
+  try {
+    const slug = request.params.projectName
+    const project = await Project.findOne({ slug })
+    response.render('project', { project })
+  } catch (err) {
+    console.error(err)
+    response.status(500).send('Server error')
   }
-  if (slug === 'web-development') {
-    return response.sendFile('projects/web-development.html', { root: 'public' })
-  }
-  response.status(404).send('<h1>Project not found</h1><p><a href="/projects">Back to projects</a></p>')
 })
 
+// Serve remaining static files from /public
 app.use(express.static('public'))
 
+// 404 handler — must be last
 app.use((req, res) => {
   res.status(404).sendFile('404.html', { root: 'public' })
 })
 
 app.listen(PORT, () => {
-  console.log(`Started server on port ${PORT}`)
+  console.log(`Server started on port ${PORT}`)
 })
