@@ -1,23 +1,8 @@
 <!doctype html>
 <html lang="en-US">
-  <head>
-    <link href="/css/style.css" rel="stylesheet" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Projects - Alex's Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playwrite+NZ+Basic:wght@100..400&display=swap" rel="stylesheet">
-    <script async src="/js/main.js"></script>
-  </head>
+  <%- include('partials/header', { title: 'Projects' }) %>
   <body>
-    <nav>
-      <ul>
-        <li><a href="/home">Home</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/projects">Projects</a></li>
-      </ul>
-    </nav>
+    <%- include('partials/nav') %>
 
     <h1>Alex Draesner: Portfolio</h1>
     <img src="/3d-pager.png" alt="My 3d Print" />
@@ -47,3 +32,4 @@
 
   </body>
 </html>
+
