@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const path = require('path')
 const connectDB = require('./db')
@@ -6,7 +7,7 @@ const app = express()
 const Project = require('./models/Project')
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: true }))
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 
 // Connect to MongoDB
 connectDB()
@@ -83,8 +84,8 @@ app.post('/project/:slug/edit', async (request, response) => {
   }
 })
 
-// for deleting a project
-app.get('/project/:slug/delete', async (request, response) => {
+// for deleting a project (changed GET to POST)
+app.post('/project/:slug/delete', async (request, response) => {
   try {
     await Project.findOneAndDelete({ slug: request.params.slug })
     response.redirect('/projects')
@@ -93,7 +94,6 @@ app.get('/project/:slug/delete', async (request, response) => {
     response.send('Error: The project could not be deleted.')
   }
 })
-
 
 app.get('/project/:projectName', (request, response) => {
   const slug = request.params.projectName
