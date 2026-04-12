@@ -20,6 +20,22 @@ connectDB()
 app.use('/css', express.static(path.join(__dirname, 'css')))
 app.use('/js', express.static(path.join(__dirname, 'js')))
 
+// Admin authentication middleware
+const adminAuth = (req, res, next) => {
+  const auth = req.headers.authorization
+  if (!auth) {
+    res.setHeader('WWW-Authenticate', 'Basic realm="Admin"')
+    return res.status(401).send('Authentication required')
+  }
+  const [username, password] = Buffer.from(auth.split(' ')[1], 'base64').toString().split(':')
+  if (username === process.env.ADMIN_USER && password === process.env.ADMIN_PASSWORD) {
+    next()
+  } else {
+    res.setHeader('WWW-Authenticate', 'Basic realm="Admin"')
+    return res.status(401).send('Invalid credentials')
+  }
+}
+
 // Static pages
 app.get('/', (request, response) => {
   response.sendFile('index.html', { root: 'public' })
@@ -40,12 +56,12 @@ app.get('/projects', async (request, response) => {
 })
 
 // Show form to create a new project
-app.get('/projects/new', (request, response) => {
+app.get('/projects/new', adminAuth, (request, response) => {
   response.render('new-project')
 })
 
 // Save a new project to the database
-app.post('/projects', async (request, response) => {
+app.post('/projects', adminAuth, async (request, response) => {
   try {
     const project = new Project({
       name: request.body.name,
@@ -62,7 +78,7 @@ app.post('/projects', async (request, response) => {
 })
 
 // Show edit form for a project
-app.get('/project/:slug/edit', async (request, response) => {
+app.get('/project/:slug/edit', adminAuth, async (request, response) => {
   try {
     const project = await Project.findOne({ slug: request.params.slug })
     if (!project) throw new Error('Project not found')
@@ -74,7 +90,7 @@ app.get('/project/:slug/edit', async (request, response) => {
 })
 
 // Update a project in the database
-app.post('/project/:slug/edit', async (request, response) => {
+app.post('/project/:slug/edit', adminAuth, async (request, response) => {
   try {
     await Project.findOneAndUpdate(
       { slug: request.params.slug },
@@ -94,7 +110,7 @@ app.post('/project/:slug/edit', async (request, response) => {
 })
 
 // Delete a project from the database
-app.post('/project/:slug/delete', async (request, response) => {
+app.post('/project/:slug/delete', adminAuth, async (request, response) => {
   try {
     await Project.findOneAndDelete({ slug: request.params.slug })
     response.redirect('/projects')

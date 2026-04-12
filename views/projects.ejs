@@ -17,10 +17,10 @@
           <% projects.forEach(function(project) { %>
             <li>
               <h2><a href="/project/<%= project.slug %>"><%= project.name %></a></h2>
+
               <% const d = project.description || '' %>
               <% const m = d.match(/(https?:\/\/\S+)/) %>
-
-              <p><%= project.description %></p>
+              <p><%= m ? d.replace(m[1], '').trim() : d %></p>
 
               <a href="/project/<%= project.slug %>/edit">Edit</a> |
               <form action="/project/<%= project.slug %>/delete" method="POST" style="display:inline;">
